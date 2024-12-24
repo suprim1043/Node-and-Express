@@ -2,7 +2,7 @@
 //@route GET /api/contacts
 //@access public
 
-const getContact = (req, res) => {
+const getContact = async (req, res) => {
     res.json({message : "GETTING ALL CONTACTS"});
 };
 
@@ -10,7 +10,13 @@ const getContact = (req, res) => {
 //@route POST /api/contacts
 //@access public
 
-const createContact = (req, res) => {
+const createContact = async (req, res) => {
+    console.log(req.body);
+    const {name, email, phone} = req.body;
+    if(!name || !email || !phone){
+        res.status(400);
+        throw new Error("All fields are required");
+    }
     res.json({message : "Creating ALL CONTACTS"});
 };
 
@@ -20,7 +26,7 @@ const createContact = (req, res) => {
 //@route POST /api/contacts/:id
 //@access public
 
-const upadteContact = (req, res) => {
+const upadteContact =async(req, res) => {
     res.json({message : `Updaing contact with id ${req.params.id}`});
 };
 
@@ -29,7 +35,7 @@ const upadteContact = (req, res) => {
 //@route POST /api/contacts/:id
 //@access public
 
-const deleteContact = (req, res) => {
+const deleteContact = async(req, res) => {
     res.json({message : `Deleting contact with id ${req.params.id}`});
 };
 
