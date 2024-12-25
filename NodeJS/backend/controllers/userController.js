@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const user = require("../models/contactModel");
+const user = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
 
@@ -23,8 +23,21 @@ const registerUser = asyncHandler(async(req, res) =>{
     //bcrypt library is required to hash passwords, this is raw password that we are getting right now and it needs to be hashed before being put on database
 
     const hashed = await bcrypt.hash(password, 10);
-    console.log("hashed password", hashed);
-
+    const newUser = await user.create(
+        {
+            username,
+            email, 
+            password : hashed
+        }
+    );
+    console.log("user created", newUser)
+    if (newUser) {
+        res.status(201).json({_id: newUser.id, email: newUser.email});
+    }
+    else{
+        res.status(400);
+        throw new Error("User data is not valid");
+    }
     res.json({message: "Register the user"});
 });
 
