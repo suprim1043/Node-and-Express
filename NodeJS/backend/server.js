@@ -9,6 +9,7 @@ connectDb();
 const app = express();
 app.use(express.json()); //parser for accepting body from client side
 app.use("/api/contacts", require("./routes/contactRoute")); //used for routing
+app.use("/api/users", require("./routes/userRoute")); //used for routing
 app.use(errorHandler); //errorhandling middleware from middleware/errorhandler.js
 
 
