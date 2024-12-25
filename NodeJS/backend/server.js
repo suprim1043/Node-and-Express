@@ -1,8 +1,10 @@
 const express = require("express");
 const errorHandler = require("./middleware/errorhandler");
+const connectDb = require("./config/dbConnection");
 const dotenv = require("dotenv").config();
 
 const port = process.env.PORT || 5050;
+connectDb();
 
 const app = express();
 app.use(express.json()); //parser for accepting body from client side
